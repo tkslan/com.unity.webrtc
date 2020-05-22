@@ -102,7 +102,6 @@ absl::optional<bool> UnityVideoTrackSource::needs_denoising() const {
 void UnityVideoTrackSource::OnFrameCaptured(
     rtc::scoped_refptr<::webrtc::VideoFrame> frame)
 {
-    /*
   DCHECK_CALLED_ON_VALID_THREAD(thread_checker_);
   TRACE_EVENT0("media", "WebRtcVideoSource::OnFrameCaptured");
   if (!(frame->IsMappable() &&
@@ -118,7 +117,6 @@ void UnityVideoTrackSource::OnFrameCaptured(
     NOTREACHED();
     return;
   }
-     */
 
   // Compute what rectangular region has changed since the last frame
   // that we successfully delivered to the base class method

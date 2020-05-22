@@ -219,6 +219,7 @@
     <ClInclude Include="PeerConnectionObject.h" />
     <ClInclude Include="SetSessionDescriptionObserver.h" />
     <ClInclude Include="UnityVideoEncoderFactory.h" />
+    <ClInclude Include="UnityVideoTrackSource.h" />
     <ClInclude Include="VideoCapturer.h" />
     <ClInclude Include="VideoCaptureTrackSource.h" />
     <ClInclude Include="WebRTCConstants.h" />
@@ -261,6 +262,7 @@
     <ClCompile Include="PeerConnectionObject.cpp" />
     <ClCompile Include="SetSessionDescriptionObserver.cpp" />
     <ClCompile Include="UnityVideoEncoderFactory.cpp" />
+    <ClCompile Include="UnityVideoTrackSource.cpp" />
     <ClCompile Include="VideoCapturer.cpp" />
     <ClCompile Include="VideoCaptureTrackSource.cpp" />
     <ClCompile Include="WebRTCPlugin.cpp" />

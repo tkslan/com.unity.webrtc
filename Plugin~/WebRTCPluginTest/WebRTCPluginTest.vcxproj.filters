@@ -79,6 +79,7 @@
     <ClCompile Include="..\WebRTCPlugin\MediaStreamObserver.cpp" />
     <ClCompile Include="..\WebRTCPlugin\SetSessionDescriptionObserver.cpp" />
     <ClCompile Include="..\WebRTCPlugin\UnityVideoEncoderFactory.cpp" />
+    <ClCompile Include="VideoTrackSourceTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\WebRTCPlugin\Context.h" />
