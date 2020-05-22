@@ -27,6 +27,10 @@ xcopy /e build64\googlemock\Release lib
 xcopy /e build64\googlemock\gtest\Release lib
 
 echo -------------------
+echo Rename gmock folder
+ren %SOLUTION_DIR%\packages\googlemock.v140.windesktop.static.rt-dyn.1.7.0.1\build\native\include\gtest gmock
+
+echo -------------------
 echo Build com.unity.webrtc Plugin 
 
 cd %SOLUTION_DIR%
