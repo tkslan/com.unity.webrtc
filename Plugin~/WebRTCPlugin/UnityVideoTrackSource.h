@@ -45,7 +45,7 @@ class UnityVideoTrackSource : public rtc::AdaptedVideoTrackSource
     bool remote() const override;
     bool is_screencast() const override;
     absl::optional<bool> needs_denoising() const override;
-    void OnFrameCaptured(rtc::scoped_refptr<::webrtc::VideoFrame> frame);
+    void OnFrameCaptured(::webrtc::VideoFrame& frame);
 
     using ::webrtc::VideoTrackSourceInterface::AddOrUpdateSink;
     using ::webrtc::VideoTrackSourceInterface::RemoveSink;
@@ -59,9 +59,9 @@ class UnityVideoTrackSource : public rtc::AdaptedVideoTrackSource
   // rtc::AdaptedVideoTrackSource::OnFrame(). If the cropping (given via
   // |frame->visible_rect()|) has changed since the last delivered frame, the
   // whole frame is marked as updated.
-  void DeliverFrame(rtc::scoped_refptr<::webrtc::VideoFrame> frame,
-                    gfx::Rect* update_rect,
-                    int64_t timestamp_us);
+  // void DeliverFrame(rtc::scoped_refptr<::webrtc::VideoFrame> frame,
+  //                  gfx::Rect* update_rect,
+  //                  int64_t timestamp_us);
 
   // |thread_checker_| is bound to the libjingle worker thread.
   // THREAD_CHECKER(thread_checker_);

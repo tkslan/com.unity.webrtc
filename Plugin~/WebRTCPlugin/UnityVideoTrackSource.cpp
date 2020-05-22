@@ -55,8 +55,11 @@ gfx::Rect ScaleRectangle(const gfx::Rect& input_rect,
 }
 }  // anonymous namespace
 */
-namespace unity {
-namespace webrtc {
+
+namespace unity
+{
+namespace webrtc
+{
 
 //const base::Feature kWebRtcLogWebRtcVideoFrameAdapter{
 //    "WebRtcLogWebRtcVideoFrameAdapter", base::FEATURE_DISABLED_BY_DEFAULT};
@@ -100,8 +103,9 @@ absl::optional<bool> UnityVideoTrackSource::needs_denoising() const {
 }
 
 void UnityVideoTrackSource::OnFrameCaptured(
-    rtc::scoped_refptr<::webrtc::VideoFrame> frame)
+    ::webrtc::VideoFrame& frame)
 {
+  /*
   DCHECK_CALLED_ON_VALID_THREAD(thread_checker_);
   TRACE_EVENT0("media", "WebRtcVideoSource::OnFrameCaptured");
   if (!(frame->IsMappable() &&
@@ -286,8 +290,11 @@ void UnityVideoTrackSource::OnFrameCaptured(
   DeliverFrame(std::move(scaled_frame),
                OptionalOrNullptr(accumulated_update_rect_),
                translated_camera_time_us);
+  */
+    OnFrame(frame);
 }
 
+/*
 UnityVideoTrackSource::FrameAdaptationParams
 UnityVideoTrackSource::ComputeAdaptationParams(int width,
                                                 int height,
@@ -303,7 +310,7 @@ UnityVideoTrackSource::ComputeAdaptationParams(int width,
 }
 
 void UnityVideoTrackSource::DeliverFrame(
-    scoped_refptr<media::VideoFrame> frame,
+    rtc::scoped_refptr<media::VideoFrame> frame,
     gfx::Rect* update_rect,
     int64_t timestamp_us) {
   if (update_rect) {
@@ -342,6 +349,7 @@ void UnityVideoTrackSource::DeliverFrame(
   // Clear accumulated_update_rect_.
   accumulated_update_rect_ = gfx::Rect();
 }
+*/
 
 } // end namespace webrtc
 } // end namespace unity
