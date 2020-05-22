@@ -196,8 +196,9 @@ namespace webrtc
             return false;
         }
 
-        m_mapVideoCapturer[track]->SetEncoder(encoder);
-        m_mapVideoCapturer[track]->StartEncoder();
+
+        // m_mapVideoCapturer[track]->SetEncoder(encoder);
+        // m_mapVideoCapturer[track]->StartEncoder();
 
         uint32_t id = GenerateUniqueId();
         encoder->SetEncoderId(id);
