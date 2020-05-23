@@ -5,11 +5,10 @@
 #include "../WebRTCPlugin/Context.h"
 #include "../WebRTCPlugin/VideoCaptureTrackSource.h"
 #include "UnityVideoTrackSource.h"
-//#include "test/frame_generator.h"
 
-//using testing::_;
-//using testing::Invoke;
-//using testing::Mock;
+using testing::_;
+using testing::Invoke;
+using testing::Mock;
 
 namespace unity
 {
@@ -55,26 +54,24 @@ protected:
         context = std::make_unique<Context>();
     }
 
-    webrtc::VideoFrame* CreateTestFrame(int width, int height)
+    webrtc::VideoFrame::Builder  CreateBlackFrameBuilder(int width, int height)
     {
-        /*
-        std::unique_ptr<webrtc::test::FrameGenerator> generator =
-            webrtc::test::FrameGenerator::CreateSquareGenerator( width, height,
-            webrtc::test::FrameGenerator::OutputType::kI420, 1);
+        rtc::scoped_refptr<webrtc::I420Buffer> buffer =
+            webrtc::I420Buffer::Create(width, height);
 
-        return generator->NextFrame();
-        */
-        return nullptr;
+        webrtc::I420Buffer::SetBlack(buffer);
+        return webrtc::VideoFrame::Builder().set_video_frame_buffer(buffer);
     }
 
-    void SendTestFrame()
+    void SendTestFrame(int width, int height)
     {
-        webrtc::VideoFrame* frame =
-                CreateTestFrame(width, height);
-            m_trackSource->OnFrameCaptured(*frame);
+        webrtc::VideoFrame frame =
+            CreateBlackFrameBuilder(width, height).build();
+            m_trackSource->OnFrameCaptured(frame);
     }
 
-    void TearDown() override {
+    void TearDown() override
+    {
         GraphicsDeviceTestBase::TearDown();
     }
 };
@@ -94,8 +91,14 @@ TEST_P(VideoTrackSourceTest, CreateVideoSourceProxy)
 
 TEST_P(VideoTrackSourceTest, SendTestFrame)
 {
-    SendTestFrame();
-//    EXPECT_CALL(mock_sink_, OnFrame(testing::_));
+    int width = 256;
+    int height = 256;
+    EXPECT_CALL(mock_sink_, OnFrame(_))
+        .WillOnce(Invoke([width, height](const webrtc::VideoFrame& frame) {
+            EXPECT_EQ(width, frame.width());
+            EXPECT_EQ(height, frame.height());
+    }));
+    SendTestFrame(width, height);
 }
 
 INSTANTIATE_TEST_CASE_P(
