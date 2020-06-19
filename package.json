@@ -1,17 +1,11 @@
 {
-  "name": "com.unity.webrtc",
+  "name": "com.unity.webrtc-tomi",
   "displayName": "WebRTC",
-  "version": "2.0.2-tomi-preview",
+  "version": "2.0.2-tomi",
   "unity": "2019.3",
   "description": "The WebRTC package provides browsers and mobile applications with Real-Time Communications (RTC) capabilities.",
   "keywords": [
     "webrtc",
     "web"
-  ],
-  "samples": [{
-      "displayName": "Example",
-      "description": "WebRTC sample",
-      "path": "Samples~"
-    }
   ]
 }
