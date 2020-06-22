@@ -86,11 +86,11 @@ namespace webrtc
         bool isIdrFrame = false;
         //10Mbps
         uint32_t m_bitRate = 10000000;
-        //100Mbps
-        uint32_t lastBitRate = 100000000;
-        //5Mbps
-        const uint32_t minBitRate = 5000000;
-        uint32_t m_frameRate = 30;
+        //30Mbps
+        uint32_t m_lastBitRate = 30000000;
+        //1Mbps
+        const uint32_t m_minBitRate = 1000000;
+        uint32_t m_frameRate = 15;
     };
     
 } // end namespace webrtc

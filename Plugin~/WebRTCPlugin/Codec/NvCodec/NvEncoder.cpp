@@ -66,7 +66,7 @@ namespace webrtc
         nvEncInitializeParams.darWidth = m_width;
         nvEncInitializeParams.darHeight = m_height;
         nvEncInitializeParams.encodeGUID = NV_ENC_CODEC_H264_GUID;
-        nvEncInitializeParams.presetGUID = NV_ENC_PRESET_LOW_LATENCY_HQ_GUID;
+        nvEncInitializeParams.presetGUID = NV_ENC_PRESET_LOW_LATENCY_HP_GUID;
         nvEncInitializeParams.frameRateNum = m_frameRate;
         nvEncInitializeParams.frameRateDen = 1;
         nvEncInitializeParams.enablePTD = 1;
@@ -86,13 +86,14 @@ namespace webrtc
         nvEncConfig.profileGUID = NV_ENC_H264_PROFILE_BASELINE_GUID;
         nvEncConfig.gopLength = nvEncInitializeParams.frameRateNum;
         nvEncConfig.rcParams.averageBitRate = m_bitRate;
+        nvEncConfig.rcParams.maxBitRate = m_lastBitRate;
         nvEncConfig.encodeCodecConfig.h264Config.idrPeriod = nvEncConfig.gopLength;
 
         nvEncConfig.encodeCodecConfig.h264Config.sliceMode = 0;
         nvEncConfig.encodeCodecConfig.h264Config.sliceModeData = 0;
         nvEncConfig.encodeCodecConfig.h264Config.repeatSPSPPS = 1;
         //Quality Control
-        nvEncConfig.encodeCodecConfig.h264Config.level = NV_ENC_LEVEL_H264_51;
+        nvEncConfig.encodeCodecConfig.h264Config.level = NV_ENC_LEVEL_H264_3;
 #pragma endregion
 #pragma region get encoder capability
         NV_ENC_CAPS_PARAM capsParam = { 0 };
@@ -206,16 +207,17 @@ namespace webrtc
             s_hModule = nullptr;
         }
     }
-
+ 
     void NvEncoder::UpdateSettings()
     {
         bool settingChanged = false;
-    ;
+    
         if (nvEncConfig.rcParams.averageBitRate != m_bitRate)
         {
             nvEncConfig.rcParams.averageBitRate = m_bitRate;
             settingChanged = true;
         }
+      
         if (nvEncInitializeParams.frameRateNum != m_frameRate)
         {
             nvEncInitializeParams.frameRateNum = m_frameRate;
@@ -234,6 +236,10 @@ namespace webrtc
     void NvEncoder::SetRates(const webrtc::VideoEncoder::RateControlParameters& parameters)
     {
         const uint32_t bitrate = parameters.bitrate.get_sum_bps();
+        if (bitrate < m_minBitRate)
+        {
+            nvEncConfig.rcParams.averageBitRate = m_bitRate;
+        }
         //m_bitrateAdjuster->SetTargetBitrateBps(bitrate);
         m_frameRate = parameters.framerate_fps;
     }
