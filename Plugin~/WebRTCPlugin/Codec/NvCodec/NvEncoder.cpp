@@ -66,7 +66,7 @@ namespace webrtc
         nvEncInitializeParams.darWidth = m_width;
         nvEncInitializeParams.darHeight = m_height;
         nvEncInitializeParams.encodeGUID = NV_ENC_CODEC_H264_GUID;
-        nvEncInitializeParams.presetGUID = NV_ENC_PRESET_LOW_LATENCY_HP_GUID;
+        nvEncInitializeParams.presetGUID = NV_ENC_PRESET_HP_GUID;
         nvEncInitializeParams.frameRateNum = m_frameRate;
         nvEncInitializeParams.frameRateDen = 1;
         nvEncInitializeParams.enablePTD = 1;
@@ -93,7 +93,7 @@ namespace webrtc
         nvEncConfig.encodeCodecConfig.h264Config.sliceModeData = 0;
         nvEncConfig.encodeCodecConfig.h264Config.repeatSPSPPS = 1;
         //Quality Control
-        nvEncConfig.encodeCodecConfig.h264Config.level = NV_ENC_LEVEL_H264_3;
+        nvEncConfig.encodeCodecConfig.h264Config.level = NV_ENC_LEVEL_H264_51;
 #pragma endregion
 #pragma region get encoder capability
         NV_ENC_CAPS_PARAM capsParam = { 0 };
