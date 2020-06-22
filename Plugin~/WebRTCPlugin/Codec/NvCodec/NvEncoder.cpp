@@ -27,7 +27,7 @@ namespace webrtc
         LogPrint(StringFormat("width is %d, height is %d", width, height).c_str());
         checkf(width > 0 && height > 0, "Invalid width or height!");
 
-       // m_bitrateAdjuster = std::make_unique<webrtc::BitrateAdjuster>(0.5f, 0.95f);
+        m_bitrateAdjuster = std::make_unique<webrtc::BitrateAdjuster>(0.5f, 0.95f);
     }
 
     void NvEncoder::InitV()
