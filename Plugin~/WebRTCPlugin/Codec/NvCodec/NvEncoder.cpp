@@ -66,7 +66,7 @@ namespace webrtc
         nvEncInitializeParams.darWidth = m_width;
         nvEncInitializeParams.darHeight = m_height;
         nvEncInitializeParams.encodeGUID = NV_ENC_CODEC_H264_GUID;
-        nvEncInitializeParams.presetGUID = NV_ENC_PRESET_HP_GUID;
+        nvEncInitializeParams.presetGUID = NV_ENC_PRESET_LOW_LATENCY_DEFAULT_GUID;
         nvEncInitializeParams.frameRateNum = m_frameRate;
         nvEncInitializeParams.frameRateDen = 1;
         nvEncInitializeParams.enablePTD = 1;
