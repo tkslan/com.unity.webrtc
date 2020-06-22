@@ -27,7 +27,7 @@ namespace webrtc
         LogPrint(StringFormat("width is %d, height is %d", width, height).c_str());
         checkf(width > 0 && height > 0, "Invalid width or height!");
 
-        m_bitrateAdjuster = std::make_unique<webrtc::BitrateAdjuster>(0.5f, 0.95f);
+       // m_bitrateAdjuster = std::make_unique<webrtc::BitrateAdjuster>(0.5f, 0.95f);
     }
 
     void NvEncoder::InitV()
@@ -85,7 +85,7 @@ namespace webrtc
         std::memcpy(&nvEncConfig, &presetConfig.presetCfg, sizeof(NV_ENC_CONFIG));
         nvEncConfig.profileGUID = NV_ENC_H264_PROFILE_BASELINE_GUID;
         nvEncConfig.gopLength = nvEncInitializeParams.frameRateNum;
-        nvEncConfig.rcParams.averageBitRate = 10000000;
+        nvEncConfig.rcParams.averageBitRate = m_bitRate;
         nvEncConfig.encodeCodecConfig.h264Config.idrPeriod = nvEncConfig.gopLength;
 
         nvEncConfig.encodeCodecConfig.h264Config.sliceMode = 0;
@@ -210,10 +210,10 @@ namespace webrtc
     void NvEncoder::UpdateSettings()
     {
         bool settingChanged = false;
-        const uint32_t bitRate = m_bitrateAdjuster->GetAdjustedBitrateBps();
-        if (nvEncConfig.rcParams.averageBitRate != bitRate)
+    ;
+        if (nvEncConfig.rcParams.averageBitRate != m_bitRate)
         {
-            nvEncConfig.rcParams.averageBitRate = bitRate;
+            nvEncConfig.rcParams.averageBitRate = m_bitRate;
             settingChanged = true;
         }
         if (nvEncInitializeParams.frameRateNum != m_frameRate)
@@ -234,7 +234,7 @@ namespace webrtc
     void NvEncoder::SetRates(const webrtc::VideoEncoder::RateControlParameters& parameters)
     {
         const uint32_t bitrate = parameters.bitrate.get_sum_bps();
-        m_bitrateAdjuster->SetTargetBitrateBps(bitrate);
+        //m_bitrateAdjuster->SetTargetBitrateBps(bitrate);
         m_frameRate = parameters.framerate_fps;
     }
 
@@ -272,6 +272,7 @@ namespace webrtc
         picParams.inputHeight = nvEncInitializeParams.encodeHeight;
         picParams.outputBitstream = frame.outputFrame;
         picParams.inputTimeStamp = frameCount;
+    
 #pragma endregion
 #pragma region start encoding
         if (isIdrFrame)
@@ -284,7 +285,7 @@ namespace webrtc
 #pragma endregion
         ProcessEncodedFrame(frame);
         frameCount++;
-        m_bitrateAdjuster->Update(frame.encodedFrame.size());
+      
         return true;
     }
 

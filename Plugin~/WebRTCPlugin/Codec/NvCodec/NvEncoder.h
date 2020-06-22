@@ -84,9 +84,13 @@ namespace webrtc
         uint64 frameCount = 0;
         void* pEncoderInterface = nullptr;
         bool isIdrFrame = false;
-
+        //10Mbps
+        uint32_t m_bitRate = 10000000;
+        //100Mbps
+        uint32_t lastBitRate = 100000000;
+        //5Mbps
+        const uint32_t minBitRate = 5000000;
         uint32_t m_frameRate = 30;
-        std::unique_ptr<webrtc::BitrateAdjuster> m_bitrateAdjuster;
     };
     
 } // end namespace webrtc
